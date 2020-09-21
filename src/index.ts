@@ -1,6 +1,9 @@
+import * as dotenv from 'dotenv';
 import Docker from 'dockerode';
 import Builder from './Builder';
 import Runner from './Runner';
+
+dotenv.config();
 
 const docker = new Docker();
 const builder = new Builder(docker);
