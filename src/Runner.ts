@@ -31,15 +31,15 @@ export default class Runner {
 
         const Path = await Runner.saveCode(opts.folderPath, code);
 
-        await this.docker.createContainer({
-            AttachStdin: false,
-            AttachStdout: true,
-            Tty: false,
-            Cmd: [],
-            HostConfig: { Mounts: [{ Source: Path, Target: '/app', Type: 'bind' }] },
+        // await this.docker.createContainer({
+        //     AttachStdin: false,
+        //     AttachStdout: true,
+        //     Tty: false,
+        //     Cmd: [],
+        //     HostConfig: { Mounts: [{ Source: Path, Target: '/app', Type: 'bind' }] },
 
-        });
+        // });
 
-        await this.docker.run(tag, [], process.stdout);
+        await this.docker.run(tag, ['python3', '/app/code.py'], process.stdout, { HostConfig: { Mounts: [{ Source: Path, Target: '/app', Type: 'bind' }] } });
     }
 }
